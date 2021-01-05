@@ -1,6 +1,10 @@
-from django.contrib.auth.models import User
 from django.db import models
-from django.utils import timezone
+
+
+class PublishedManager(models.Manager):
+    #  Созданный менеджер позволит нам получать статьи, используя запись Post.published.all().
+    def get_queryset(self):
+        return super().get_queryset().filter(status='published')
 
 
 class Post(models.Model):
@@ -8,6 +12,13 @@ class Post(models.Model):
         ('draft', 'Draft'),
         ('published', 'Published'),
     )
+
+    objects = models.Manager()  # Менеджер по умолчанию.
+    published = PublishedManager()  # Наш новый менеджер.
+    # С помощью следующей команды мы получим все опубликованные статьи,
+    # название которых начинается с Who:
+    # Post.published.filter(title__startswith='Who')
+
 
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique_for_date='publish')
