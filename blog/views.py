@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView
 
 from .models import Post
 
@@ -25,3 +26,10 @@ def post_detail(request, year, month, day, post):
                              publish__year=year,
                              publish__month=month, publish__day=day)
     return render(request, 'blog/post/detail.html', {'post': post})
+
+
+class PostListView(ListView):
+    queryset = Post.published.all()
+    context_object_name = 'posts'  # использовать posts в качестве переменной контекста HTML-шаблона, в которой будет храниться список объектов. Если не указать атрибут context_object_name, по умолчанию используется переменная object_list;
+    paginate_by = 2
+    template_name = 'blog/post/list.html'
