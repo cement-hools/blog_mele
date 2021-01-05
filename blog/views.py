@@ -2,6 +2,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 
+from .forms import EmailPostForm
 from .models import Post
 
 
@@ -33,3 +34,19 @@ class PostListView(ListView):
     context_object_name = 'posts'  # использовать posts в качестве переменной контекста HTML-шаблона, в которой будет храниться список объектов. Если не указать атрибут context_object_name, по умолчанию используется переменная object_list;
     paginate_by = 2
     template_name = 'blog/post/list.html'
+
+
+def post_share(request, post_id):
+    # Получение статьи по идентификатору.
+    post = get_object_or_404(Post, id=post_id, status='published')
+    if request.method == 'POST':
+        # Форма была отправлена на сохранение.
+        form = EmailPostForm(request.POST)
+        if form.is_valid():
+            # Все поля формы прошли валидацию.
+            cd = form.cleaned_data
+            # ... Отправка электронной почты.
+        else:
+            form = EmailPostForm()
+            return render(request, 'blog/post/share.html',
+                      {'post': post, 'form': form})
