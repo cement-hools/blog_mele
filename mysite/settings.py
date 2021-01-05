@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -122,6 +122,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# #  подключаем движок filebased.EmailBackend
+# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+# # указываем директорию, в которую будут складываться файлы писем
+
+# EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_HOST_USER = 'your_account@gmail.com'
 # EMAIL_HOST_PASSWORD = 'your_password'
