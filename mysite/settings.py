@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
 
 # Application definition
 
@@ -39,8 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'blog.apps.BlogConfig',
-    'taggit',
+    'taggit', # теги
+    'django.contrib.sites',    # карта сайта
+    'django.contrib.sitemaps', # карта сайта
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
