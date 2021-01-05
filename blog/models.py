@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from taggit.managers import TaggableManager
 
 
 class PublishedManager(models.Manager):
@@ -29,6 +30,8 @@ class Post(models.Model):
 
     objects = models.Manager()  # Менеджер по умолчанию.
     published = PublishedManager()  # Наш новый менеджер.
+
+    tags = TaggableManager()  # Менеджер tags позволит нам добавлять, получать список и удалять теги для объектов статей.
 
     # С помощью следующей команды мы получим все опубликованные статьи,
     # название которых начинается с Who:

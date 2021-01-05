@@ -74,4 +74,5 @@ my_env
 
 
 .idea
-book_for_study
+book_for_study/
+.book_for_study
